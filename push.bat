@@ -88,8 +88,15 @@ if /i "%retry%"=="Y" (
     echo.
     echo Menjalankan git pull origin main --rebase...
     git pull origin main --rebase
+    if %errorlevel% neq 0 (
+        echo [INFO] Menyelesaikan perbedaan file README...
+        git checkout --theirs README.md >nul 2>&1
+        git add README.md >nul 2>&1
+        git -c core.editor=true rebase --continue >nul 2>&1
+    )
     echo Mendorong kembali ke origin main...
     git push -u origin main
+    if %errorlevel% equ 0 goto success
 )
 goto finish
 
