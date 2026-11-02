@@ -59,7 +59,8 @@ app.get('/', (c) => c.json({
   name: 'My Journal API',
   status: 'online',
   version: '1.0.0',
-  documentation: '/api/health',
+  database_configured: Boolean(process.env.DATABASE_URL),
+  health: '/api/health',
 }));
 
 app.get('/api', (c) => c.json({
